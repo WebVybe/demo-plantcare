@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { carePlan, plantco, serviceCategories } from '../content/plantco'
+import CarePlans from '../components/CarePlans'
+import ServiceArea from '../components/ServiceArea'
+import { plantco, serviceCategories } from '../content/plantco'
 
 export default function Services() {
   return (
@@ -62,19 +64,19 @@ export default function Services() {
         ))}
       </div>
 
-      <div className="mt-16 rounded-3xl bg-fern px-8 py-10 text-center">
-        <p className="eyebrow mb-2 text-mist">Signature plan</p>
-        <h2 className="font-serif text-2xl text-canvas">
-          {carePlan.name} — {carePlan.price}, no contract
-        </h2>
-        <ul className="mx-auto mt-4 max-w-lg space-y-1 text-sm text-mist/90">
-          {carePlan.bullets.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
-        <NavLink to="/contact" className="btn-primary mt-6 inline-flex !bg-brass hover:!bg-brass-deep">
-          Ask About This Plan
-        </NavLink>
+      <div className="mt-16">
+        <p className="eyebrow mb-2 text-brass-deep">Maintenance Plans, compared</p>
+        <h2 className="font-serif text-2xl text-ink">Pick a cadence, not a commitment</h2>
+        <p className="mt-2 max-w-xl text-sm text-slate">
+          Every tier is priced per month, confirmed after a free walkthrough, and pauses or cancels with two weeks
+          notice.
+        </p>
+        <CarePlans className="mt-8" />
+      </div>
+
+      <div className="mt-16 rounded-3xl bg-mist px-8 py-10">
+        <p className="eyebrow mb-2">Service Area</p>
+        <ServiceArea />
       </div>
 
       <div className="mt-12 text-center">

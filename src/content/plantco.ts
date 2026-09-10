@@ -160,49 +160,185 @@ export const serviceCategories: ServiceCategory[] = [
   },
 ]
 
-// A signature recurring plan, priced and explained the same way a
-// membership works on the salon demo -- built for people who want this to
-// be a habit, not a one-off.
-export const carePlan = {
-  name: 'The Standing Visit',
-  price: '$159/month',
-  bullets: [
-    'A technician on the same day every other week, rain or shine',
-    'Dead or dying plants swapped at cost, not full replacement price',
-    'Text-based updates with photos after every visit',
-    'No long-term contract -- pause or cancel with two weeks notice',
-  ],
+// Three named, tiered maintenance plans shown side by side -- replaces a
+// single undifferentiated "signature plan" banner. Priced per month (not
+// per visit), each with its own explicit inclusions, and the middle tier
+// visually emphasized as the recommended default. The "no long-term
+// contract" reassurance applies to every tier, not just one.
+export type CarePlanTier = {
+  id: string
+  name: string
+  price: string
+  cadence: string
+  recommended?: boolean
+  bullets: string[]
 }
+
+export const carePlans: CarePlanTier[] = [
+  {
+    id: 'basic',
+    name: 'Basic Care',
+    price: '$99/mo',
+    cadence: 'Monthly visit -- up to 15 plants',
+    bullets: [
+      'One visit a month: watering, feeding, dusting, health check',
+      'Text update with photos after every visit',
+      'Dead or dying plants swapped at cost, not full replacement price',
+      'No long-term contract -- pause or cancel with two weeks notice',
+    ],
+  },
+  {
+    id: 'signature',
+    name: 'Signature Care',
+    price: '$159/mo',
+    cadence: 'Every other week -- up to 15 plants',
+    recommended: true,
+    bullets: [
+      'A technician on the same day every other week, rain or shine',
+      'Dead or dying plants swapped at cost, not full replacement price',
+      'Text-based updates with photos after every visit',
+      'No long-term contract -- pause or cancel with two weeks notice',
+    ],
+  },
+  {
+    id: 'premium',
+    name: 'Premium Care',
+    price: '$249/mo',
+    cadence: 'Weekly visit -- up to 15 plants',
+    bullets: [
+      'Weekly visits -- built for lobbies, storefronts, and client-facing offices',
+      'Priority scheduling for seasonal rotations and events',
+      'Dead or dying plants swapped at cost, not full replacement price',
+      'No long-term contract -- pause or cancel with two weeks notice',
+    ],
+  },
+]
 
 // Cluster of credibility signals, grouped in one place -- borrowed from the
 // Local Service/Contractor benchmark (Len The Plumber) in
 // design-benchmarks.md: license, insurance, years in business, and
-// certifications shown together, not scattered across the page.
+// certifications shown together, not scattered across the page. The
+// access/entry pillar is specific to this category -- a stranger entering
+// a private home or office, a trust problem food/wellness sites never
+// have to solve.
 export const trustPoints = [
   { label: 'Insured & bonded', detail: 'Full coverage for work in homes and offices, certificate on request' },
   { label: 'IPM-Certified', detail: 'Integrated Pest Management certified -- no blanket chemical spraying' },
   { label: '6 years in San Diego', detail: `${plantco.founderName} has run routes across the city since ${plantco.founded}` },
   { label: 'Same technician every visit', detail: 'You get to know one person, not a rotating crew' },
+  {
+    label: 'We work around your access',
+    detail:
+      'Lockbox, entry code, key hand-off, or a scheduled time when you are home -- confirmed before the first visit, with background-checked technicians either way.',
+  },
 ]
 
 // What actually happens between a first inquiry and an ongoing plan --
-// mirrors the "first visit" walkthrough pattern on the salon demo, adapted
-// to a quote-then-route service business.
+// framed around access and trust logistics specific to letting someone
+// into a home or office, not a spa's first-visit-comfort framing.
 export const howItWorks = [
   {
     step: '01',
-    title: 'Free walkthrough, fast',
-    body: 'We come look at your space and your plants within 48 hours of a request, most weeks sooner.',
+    title: 'We confirm access -- lockbox, code, or you are home',
+    body: 'Settled before the first visit is scheduled, not figured out on your doorstep. Your choice, and it stays the same every visit after.',
   },
   {
     step: '02',
-    title: 'We recommend a plan',
-    body: 'Based on plant count, light, and how often things need attention -- no plan is oversized on purpose.',
+    title: 'First visit is a walkthrough, no commitment',
+    body: 'We look at your space and your plants and recommend a real plan -- you are not signing anything before you have actually met us.',
   },
   {
     step: '03',
-    title: 'Regular visits, real accountability',
-    body: 'Same technician, same day, every time -- with a photo update after each visit so you can see what changed.',
+    title: 'After that, same technician every time',
+    body: 'One person who knows your locks, your layout, and your plants -- not a rotating crew relearning your space from scratch.',
+  },
+]
+
+// Named neighborhoods, shown as an explicit self-qualifier rather than a
+// single line of prose buried in copy -- lets someone confirm in one
+// glance whether they're in range before they fill out a form.
+export const serviceAreas = [
+  'Golden Hill',
+  'North Park',
+  'South Park',
+  'Downtown',
+  'Bankers Hill',
+  'Hillcrest',
+  'Mission Hills',
+]
+
+// Structural proof of the "same technician every visit" claim -- named
+// people with a photo placeholder, years on route, a personal detail, and
+// vetting language, instead of just asserting continuity in copy.
+export type TeamMember = {
+  name: string
+  role: string
+  years: string
+  detail: string
+  variant: 1 | 2 | 3 | 4 | 5
+}
+
+export const team: TeamMember[] = [
+  {
+    name: plantco.founderName,
+    role: 'Founder & Lead Technician',
+    years: '6 years on route',
+    detail: 'Keeps a handwritten log of every plant she has personally revived -- past 300 and still counting.',
+    variant: 1,
+  },
+  {
+    name: 'Marcus Whitfield',
+    role: 'Technician',
+    years: '3 years on route',
+    detail: 'Started as a client before joining the team -- still owns the fiddle-leaf fig that got him hooked.',
+    variant: 3,
+  },
+]
+
+export const teamVettingNote =
+  'Every technician passes a background check and signs an access agreement before their first solo route. The same person who visits you will not change without you knowing in advance.'
+
+// Before/after pairs -- the primary conversion asset for this category
+// (lawn-care research: before/after converts 2-3x vs. single-state shots).
+// Same CSS-gradient placeholder-art approach as DecorPanel, paired and
+// clearly labeled Before/After, disclosed as placeholder art like the rest
+// of the site's imagery.
+export type BeforeAfterExample = {
+  id: string
+  transformation: string
+  detail: string
+  beforeVariant: 1 | 2 | 3 | 4 | 5
+  afterVariant: 1 | 2 | 3 | 4 | 5
+}
+
+export const beforeAfterExamples: BeforeAfterExample[] = [
+  {
+    id: 'home-revival',
+    transformation: 'Neglected home collection, revived',
+    detail: '12 plants, root-bound and light-starved -- 8 weeks into the Biweekly Plan.',
+    beforeVariant: 5,
+    afterVariant: 1,
+  },
+  {
+    id: 'office-lobby',
+    transformation: 'Bare lobby corner, styled and planted',
+    detail: 'Office Corner Refresh -- empty planters to a full install in one afternoon.',
+    beforeVariant: 5,
+    afterVariant: 2,
+  },
+  {
+    id: 'office-desk',
+    transformation: 'Dying reception-desk plants, back to full health',
+    detail: 'Switched from no plan to the Weekly Plan after months of missed watering.',
+    beforeVariant: 5,
+    afterVariant: 3,
+  },
+  {
+    id: 'seasonal',
+    transformation: 'Post-holiday storefront, seasonal refresh',
+    detail: 'A Seasonal Rotation swapped tired blooms for a fresh seasonal display.',
+    beforeVariant: 5,
+    afterVariant: 4,
   },
 ]
 
@@ -229,7 +365,7 @@ export const faqs = [
   },
   {
     q: 'What is your service area?',
-    a: 'Golden Hill outward through North Park, South Park, Downtown, and Bankers Hill. Ask if you are just outside that -- we sometimes extend routes for standing clients.',
+    a: `We currently serve ${serviceAreas.join(', ')}. Ask if you are just outside that -- we sometimes extend routes for standing clients.`,
   },
   {
     q: 'Can you do a one-time cleanup with no ongoing plan?',

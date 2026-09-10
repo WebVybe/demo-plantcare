@@ -1,13 +1,14 @@
 import { type FormEvent, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { faqs, hours, plantco, serviceCategories } from '../content/plantco'
+import ServiceArea from '../components/ServiceArea'
+import { carePlans, faqs, hours, plantco, serviceCategories } from '../content/plantco'
 
 // Single list of bookable items derived from the same source of truth as
 // the Services page, so an "Ask about this" link there always matches an
 // option here -- no separately hand-typed dropdown to fall out of sync.
 const serviceOptions = [
   ...new Set(serviceCategories.flatMap((cat) => cat.items.map((item) => item.name))),
-  'The Standing Visit Plan',
+  ...carePlans.map((tier) => tier.name),
   'Not sure yet',
 ]
 
@@ -160,6 +161,10 @@ export default function Contact() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div>
+            <p className="eyebrow mb-2">Service Area</p>
+            <ServiceArea />
           </div>
         </div>
       </div>

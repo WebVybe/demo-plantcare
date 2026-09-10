@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import DecorPanel from '../components/DecorPanel'
+import ServiceArea from '../components/ServiceArea'
 import TrustStrip from '../components/TrustStrip'
-import { hours, plantco } from '../content/plantco'
+import { hours, plantco, team, teamVettingNote } from '../content/plantco'
 
 export default function About() {
   return (
@@ -32,7 +33,36 @@ export default function About() {
         <TrustStrip />
       </section>
 
+      {/* Named-technician bio block -- proves the "same technician every
+          visit" claim structurally with a photo placeholder, name, years,
+          a personal detail, and explicit vetting language, instead of
+          just asserting continuity elsewhere in copy. */}
       <section className="border-y border-black/5 bg-mist">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <p className="eyebrow mb-3">Meet the team</p>
+          <h2 className="font-serif text-3xl text-ink">The people who actually show up</h2>
+          <p className="mt-3 max-w-2xl text-sm text-slate">
+            Photos below are placeholder art, not real headshots -- same disclosed approach as the rest of this
+            demo's imagery.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {team.map((member) => (
+              <div key={member.name} className="flex gap-5 rounded-2xl border border-black/5 bg-white p-6">
+                <DecorPanel variant={member.variant} className="h-24 w-24 shrink-0" />
+                <div>
+                  <p className="font-serif text-xl text-ink">{member.name}</p>
+                  <p className="text-sm font-medium text-brass-deep">{member.role}</p>
+                  <p className="mt-1 text-sm text-slate">{member.years}</p>
+                  <p className="mt-2 text-sm text-slate">{member.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 max-w-2xl text-sm text-slate">{teamVettingNote}</p>
+        </div>
+      </section>
+
+      <section className="border-y border-black/5 bg-canvas">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2">
           <div>
             <p className="eyebrow mb-3">Reach Us</p>
@@ -47,9 +77,9 @@ export default function About() {
                 {plantco.email}
               </a>
             </p>
-            <p className="mt-4 text-sm text-slate">
-              Service area: Golden Hill outward through North Park, South Park, Downtown, and Bankers Hill.
-            </p>
+            <div className="mt-5">
+              <ServiceArea />
+            </div>
           </div>
           <div>
             <p className="eyebrow mb-3">Office Hours</p>

@@ -7,7 +7,7 @@ import { trustPoints } from '../content/plantco'
 // all at once.
 export default function TrustStrip({ className = '' }: { className?: string }) {
   return (
-    <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-4 ${className}`}>
+    <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 ${className}`}>
       {trustPoints.map((t) => (
         <div key={t.label} className="rounded-2xl border border-black/5 bg-white p-5">
           <p className="font-serif text-base text-fern">{t.label}</p>

@@ -1,10 +1,16 @@
 import { NavLink } from 'react-router-dom'
+import BeforeAfter from '../components/BeforeAfter'
+import CarePlans from '../components/CarePlans'
 import DecorPanel from '../components/DecorPanel'
 import HowItWorks from '../components/HowItWorks'
+import ServiceArea from '../components/ServiceArea'
 import TrustStrip from '../components/TrustStrip'
-import { carePlan, faqs, plantco, serviceCategories } from '../content/plantco'
+import { beforeAfterExamples, faqs, plantco, serviceCategories } from '../content/plantco'
 
-const highlights = serviceCategories.slice(0, 3).map((c) => ({
+// The other two service categories, shown as compact cards alongside the
+// before/after revival highlight -- maintenance is the recurring habit,
+// these two are the one-time/short-term jobs.
+const secondaryHighlights = serviceCategories.slice(1, 3).map((c) => ({
   id: c.id,
   title: c.title,
   blurb: c.intro,
@@ -18,7 +24,7 @@ const pillars = [
   },
   {
     title: 'No long-term contract',
-    body: `${carePlan.name} is ${carePlan.price}, cancel with two weeks notice -- built as a habit, not a lock-in.`,
+    body: 'Every plan -- Basic, Signature, or Premium -- pauses or cancels with two weeks notice, priced per month.',
   },
   {
     title: 'Same technician every visit',
@@ -47,13 +53,28 @@ export default function Home() {
                 <span className="text-sm font-semibold text-ink">{plantco.responsePromise}</span>
               </div>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <NavLink to="/contact" className="btn-primary">
-                Get a Free Walkthrough
-              </NavLink>
-              <NavLink to="/services" className="btn-secondary">
-                See Plans & Pricing
-              </NavLink>
+
+            {/* Fork the CTA into the two buyer types this business actually
+                has -- recurring maintenance vs. a one-time job -- instead
+                of one undifferentiated pair that confuses both. */}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-fern/15 bg-white p-4">
+                <p className="eyebrow mb-2 text-fern">Ongoing care</p>
+                <NavLink to="/services#maintenance" className="btn-primary w-full !px-4 justify-center text-center">
+                  See Maintenance Plans
+                </NavLink>
+                <p className="mt-2 text-xs text-slate">Recurring visits, same technician every time.</p>
+              </div>
+              <div className="rounded-2xl border border-brass-deep/25 bg-white p-4">
+                <p className="eyebrow mb-2 text-brass-deep">Just this once</p>
+                <NavLink
+                  to="/contact?service=One-Time%20Vacation%20Visit"
+                  className="btn-secondary w-full !px-4 justify-center text-center !border-brass-deep !text-brass-deep hover:!bg-brass/10"
+                >
+                  Request a One-Time Visit
+                </NavLink>
+                <p className="mt-2 text-xs text-slate">Styling, a move, or vacation care -- no plan required.</p>
+              </div>
             </div>
           </div>
 
@@ -73,66 +94,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust/credibility cluster */}
+      {/* Trust/credibility cluster -- includes the access/entry pillar
+          specific to letting someone into a private home or office. */}
       <section className="mx-auto max-w-6xl px-6 py-16">
         <p className="eyebrow mb-3">Why locals choose us</p>
         <TrustStrip />
       </section>
 
-      {/* Service highlights */}
+      {/* Service highlights -- before/after is the lead conversion asset
+          for the recurring maintenance/revival category, not a flat card. */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <div className="mb-10 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow mb-3">What we offer</p>
-            <h2 className="font-serif text-3xl text-ink">Care, styling, and coverage while you travel</h2>
+            <h2 className="font-serif text-3xl text-ink">See the difference regular care makes</h2>
           </div>
           <NavLink to="/services" className="text-sm font-semibold text-brass-deep hover:underline">
             View full plans & pricing →
           </NavLink>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          {highlights.map((h, i) => (
-            <div key={h.id} className="rounded-2xl border border-black/5 bg-white p-6">
-              <DecorPanel variant={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5} className="mb-5 h-36 w-full" />
-              <h3 className="font-serif text-xl text-ink">{h.title}</h3>
-              <p className="mt-2 text-sm text-slate">{h.blurb}</p>
-              <p className="mt-4 text-sm font-semibold text-brass-deep">From {h.from}</p>
-            </div>
-          ))}
+        <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
+          <BeforeAfter example={beforeAfterExamples[0]} />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+            {secondaryHighlights.map((h, i) => (
+              <div key={h.id} className="rounded-2xl border border-black/5 bg-white p-6">
+                <DecorPanel variant={((i % 5) + 2) as 1 | 2 | 3 | 4 | 5} className="mb-5 h-24 w-full" />
+                <h3 className="font-serif text-xl text-ink">{h.title}</h3>
+                <p className="mt-2 text-sm text-slate">{h.blurb}</p>
+                <p className="mt-4 text-sm font-semibold text-brass-deep">From {h.from}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Signature recurring plan */}
-      <section className="border-y border-black/5 bg-fern">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div>
-            <p className="eyebrow mb-3 text-mist">Signature plan</p>
-            <h2 className="font-serif text-3xl text-canvas">
-              {carePlan.name} — {carePlan.price}
-            </h2>
-            <p className="mt-4 max-w-md text-sm text-mist/90">
-              Built for people who want plant care to be a habit, not a project. No initiation fee, no long-term
-              commitment.
-            </p>
-            <NavLink to="/contact" className="btn-primary mt-6 !bg-brass hover:!bg-brass-deep">
-              Ask About This Plan
-            </NavLink>
-          </div>
-          <ul className="space-y-3">
-            {carePlan.bullets.map((b) => (
-              <li key={b} className="flex gap-3 rounded-xl bg-white/5 p-4 text-sm text-mist/95">
-                <span className="mt-0.5 text-brass">✓</span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
+      {/* Tiered maintenance plans -- three named plans instead of one
+          undifferentiated signature-plan banner, middle tier emphasized. */}
+      <section className="border-y border-black/5 bg-canvas">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <p className="eyebrow mb-3">Maintenance Plans</p>
+          <h2 className="font-serif text-3xl text-ink">Pick a cadence, not a commitment</h2>
+          <p className="mt-3 max-w-xl text-sm text-slate">
+            Every tier below is priced per month, confirmed after a free walkthrough, and pauses or cancels with two
+            weeks notice.
+          </p>
+          <CarePlans className="mt-10" />
         </div>
       </section>
 
       {/* How it works */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <HowItWorks />
+      </section>
+
+      {/* Service area self-qualifier */}
+      <section className="border-y border-black/5 bg-mist">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <p className="eyebrow mb-3">Service Area</p>
+          <ServiceArea />
+        </div>
       </section>
 
       {/* FAQ preview */}
