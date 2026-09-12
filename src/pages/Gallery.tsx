@@ -2,13 +2,16 @@ import { NavLink } from 'react-router-dom'
 import BeforeAfter from '../components/BeforeAfter'
 import DecorPanel from '../components/DecorPanel'
 import { beforeAfterExamples } from '../content/plantco'
+// Photo credits (Pexels license: free for commercial use, no attribution required):
+import terrariumImg from '../assets/images/gallery-terrarium.jpg' // Karola G.
+import vanCratesImg from '../assets/images/gallery-van-crates.jpg' // Mat Reding
 
 // A few single-state shots that genuinely don't have a before/after pair
 // (a workshop, the route van) -- kept separate from the transformation
 // pairs above rather than mixed into the same grid.
-const singleShots: { variant: 1 | 2 | 3 | 4 | 5; label: string }[] = [
-  { variant: 4, label: 'Terrarium workshop' },
-  { variant: 3, label: 'Route van, plant crates' },
+const singleShots: { label: string; src: string }[] = [
+  { label: 'Terrarium workshop', src: terrariumImg },
+  { label: 'Route van, plant crates', src: vanCratesImg },
 ]
 
 export default function Gallery() {
@@ -17,9 +20,11 @@ export default function Gallery() {
       <p className="eyebrow mb-3">Gallery</p>
       <h1 className="font-serif text-4xl text-ink">Before & after</h1>
       <p className="mt-4 max-w-2xl text-slate">
-        This is a portfolio demo, so there's no real route or client sites to photograph yet -- every panel below is
-        intentional gradient/texture art standing in for photography, not real photos of a real location or plants.
-        Real before/after photography or licensed stock would replace these before any actual launch.
+        This is a portfolio demo, so there's no real route or client sites to photograph yet. The before/after pairs
+        below use real, licensed stock photography, but they're representative examples, not documented photos of
+        one specific job: a genuine matched before/after of the same plants doesn't exist as off-the-shelf stock, so
+        each pair substitutes a well-matched "struggling plant" / "thriving plant" photo instead. The "other
+        glimpses" below them are licensed stock photography too.
       </p>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -32,7 +37,7 @@ export default function Gallery() {
         <p className="eyebrow mb-3">Other glimpses</p>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {singleShots.map((p, i) => (
-            <DecorPanel key={`${p.label}-${i}`} variant={p.variant} label={p.label} className="h-40 w-full" />
+            <DecorPanel key={`${p.label}-${i}`} label={p.label} src={p.src} alt={p.label} className="h-40 w-full" />
           ))}
         </div>
       </div>

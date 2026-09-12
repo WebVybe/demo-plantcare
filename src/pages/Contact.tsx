@@ -32,7 +32,7 @@ export default function Contact() {
       <p className="eyebrow mb-3">Contact</p>
       <h1 className="font-serif text-4xl text-ink">Get a free walkthrough</h1>
       <p className="mt-4 max-w-xl text-slate">
-        Tell us about your space and plants -- we'll reach out within one business day to schedule a free
+        Tell us about your space and plants, and we'll reach out within one business day to schedule a free
         walkthrough. {plantco.responsePromise} For anything urgent, call us directly.
       </p>
 
@@ -43,7 +43,7 @@ export default function Contact() {
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-fern text-canvas">✓</span>
               <h2 className="font-serif text-2xl text-ink">Request received</h2>
               <p className="max-w-sm text-slate">
-                Thanks{service ? ` — we'll follow up about ${service.toLowerCase()}` : ''}. We'll reach out within
+                Thanks{service ? `. We'll follow up about ${service.toLowerCase()}` : ''}. We'll reach out within
                 one business day to schedule your walkthrough.
               </p>
               <p className="max-w-sm text-xs text-slate/70">

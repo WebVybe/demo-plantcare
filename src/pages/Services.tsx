@@ -9,7 +9,7 @@ export default function Services() {
       <p className="eyebrow mb-3">Plans & Pricing</p>
       <h1 className="font-serif text-4xl text-ink">Every plan we offer</h1>
       <p className="mt-4 max-w-xl text-slate">
-        Prices below are typical starting points for a plant count of 15 or fewer -- every plan is confirmed after a
+        Prices below are typical starting points for a plant count of 15 or fewer. Every plan is confirmed after a
         free walkthrough, not sold sight-unseen.
       </p>
       <p className="mt-3 max-w-xl text-sm text-slate/80">{plantco.responsePromise}</p>

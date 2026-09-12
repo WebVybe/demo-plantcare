@@ -14,7 +14,7 @@ export default function ServiceArea({ className = '' }: { className?: string }) 
         ))}
       </div>
       <p className="mt-3 text-sm text-slate">
-        Just outside this list? Ask -- we sometimes extend routes for standing clients.
+        Just outside this list? Ask, and we sometimes extend routes for standing clients.
       </p>
     </div>
   )
